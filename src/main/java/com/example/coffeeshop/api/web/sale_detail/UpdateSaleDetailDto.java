@@ -13,7 +13,7 @@ public record UpdateSaleDetailDto(
         Integer saleQty,
         @Positive(message = "Sale Unit Price must be Integer number and large than 0!")
         BigDecimal saleUnitPrice,
-        @Positive(message = "must be Integer number!")
+//        @Positive(message = "must be Integer number!")
         BigDecimal discount
 ) {
 }

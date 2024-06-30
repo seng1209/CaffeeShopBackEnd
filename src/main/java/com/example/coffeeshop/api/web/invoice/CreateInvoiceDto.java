@@ -7,11 +7,11 @@ import java.math.BigDecimal;
 
 public record CreateInvoiceDto(
         @NotNull(message = "Total Amount must be required!")
-        @Positive(message = "Total Amount must be Integer number and large than 0!")
+//        @Positive(message = "Total Amount must be Integer number and large than 0!")
         BigDecimal totalAmount,
-        @NotNull(message = "Paid Amount must be required!")
-        @Positive(message = "Paid Amount must be Integer number and large than 0!")
-        BigDecimal paidAmount,
+//        @NotNull(message = "Paid Amount must be required!")
+//        @Positive(message = "Paid Amount must be Integer number and large than 0!")
+//        BigDecimal paidAmount,
         @NotNull(message = "Customer must be required!")
         @Positive(message = "Customer must be Integer number and large than 0!")
         Integer customerId

@@ -24,11 +24,11 @@ public class Invoice {
     @Column(nullable = false)
     private LocalDate invoiceDate;
     @Column(nullable = false)
-    @Positive
+//    @Positive
     private BigDecimal totalAmount;
-    @Column(nullable = false)
-    @Positive
-    private BigDecimal paidAmount;
+//    @Column(nullable = false)
+//    @Positive
+//    private BigDecimal paidAmount;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

@@ -52,4 +52,9 @@ public class SaleDetailController {
         return saleDetailService.getAllAmountBySaleId(saleId);
     }
 
+    @GetMapping("/sale_uuid/{uuid}")
+    public List<SaleDetailDto> findAllSaleDetailBySaleUuid(@PathVariable String uuid){
+        return saleDetailService.findAllSaleDetailBySaleUuid(uuid);
+    }
+
 }

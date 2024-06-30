@@ -22,7 +22,9 @@ public interface SaleDetailMapper {
 
     // select a
     @Mapping(source = "sale.uuid", target = "sale")
+    @Mapping(source = "sale.id", target = "saleId")
     @Mapping(source = "product.name", target = "product")
+    @Mapping(source = "product.id", target = "productId")
     SaleDetailDto toSaleDetailDto(SaleDetail saleDetail);
 
     // select all

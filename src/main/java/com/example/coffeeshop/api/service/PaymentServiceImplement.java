@@ -29,6 +29,7 @@ public class PaymentServiceImplement implements PaymentService{
     public void createNewPayment(CreatePaymentDto createPaymentDto) {
         Payment payment = paymentMapper.formPaymentDto(createPaymentDto);
         payment.setUuid(UUID.randomUUID().toString());
+        payment.setPaymentDate(LocalDate.now());
         payment.setIsDelete(false);
         paymentRepository.save(payment);
     }
@@ -70,7 +71,7 @@ public class PaymentServiceImplement implements PaymentService{
 
     @Override
     public List<PaymentDto> findAll() {
-        List<Payment> payments = paymentRepository.findAll();
+        List<Payment> payments = paymentRepository.findAllByIsDeleteIsFalse();
         return paymentMapper.toPaymentDtoList(payments);
     }
 
@@ -84,7 +85,7 @@ public class PaymentServiceImplement implements PaymentService{
     @Override
     public void updatePaymentByIsDelete(String uuid) {
         if (paymentRepository.existsByUuid(uuid)){
-            paymentRepository.editPaymentIsDeleteIsTrueByUuid(uuid);
+            paymentRepository.editPaymentIsDeleteIsTrueByUuid(uuid, true);
             return;
         }
 

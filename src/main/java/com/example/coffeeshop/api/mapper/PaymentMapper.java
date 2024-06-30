@@ -22,7 +22,9 @@ public interface PaymentMapper {
 
     // select a payment
     @Mapping(source = "customer.name", target = "customer")
+    @Mapping(source = "customer.id", target = "customerId")
     @Mapping(source = "staff.name", target = "staff")
+    @Mapping(source = "staff.id", target = "staffId")
     PaymentDto toPaymentDto(Payment payment);
 
     // select all payment

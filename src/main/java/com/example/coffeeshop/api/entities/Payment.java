@@ -29,8 +29,8 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private Staff staff;
-    @Column(nullable = false)
-    private BigDecimal paidAmount;
+//    @Column(nullable = false)
+//    private BigDecimal paidAmount;
     private Boolean isDelete;
 
 }

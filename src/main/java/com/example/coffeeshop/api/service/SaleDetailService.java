@@ -1,5 +1,6 @@
 package com.example.coffeeshop.api.service;
 
+import com.example.coffeeshop.api.entities.Sale;
 import com.example.coffeeshop.api.web.sale_detail.CreateSaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.SaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.UpdateSaleDetailDto;
@@ -26,5 +27,8 @@ public interface SaleDetailService {
 
     // get sum of amount of sale_detail by sale_id
     BigDecimal getAllAmountBySaleId(Long saleId);
+
+    // get all sale_detail by sale_uuid
+    List<SaleDetailDto> findAllSaleDetailBySaleUuid(String uuid);
 
 }

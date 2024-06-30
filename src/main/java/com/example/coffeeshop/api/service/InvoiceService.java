@@ -3,6 +3,7 @@ package com.example.coffeeshop.api.service;
 import com.example.coffeeshop.api.web.invoice.CreateInvoiceDto;
 import com.example.coffeeshop.api.web.invoice.InvoiceDto;
 import com.example.coffeeshop.api.web.invoice.UpdateInvoiceDto;
+import com.example.coffeeshop.api.web.invoice.UpdateTotalAmountInvoiceDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -38,5 +39,11 @@ public interface InvoiceService {
 
     // select all invoice by is_delete = true
     List<InvoiceDto> findAllByIsDeleteIsTrue();
+
+    // get last id
+    Long getLastInvoiceId();
+
+    // update total amount by uuid
+    void updateTotalAmount(Long invoiceId, UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto);
 
 }

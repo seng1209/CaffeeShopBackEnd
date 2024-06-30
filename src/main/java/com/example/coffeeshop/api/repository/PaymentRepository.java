@@ -19,9 +19,11 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findAllByPaymentDate(LocalDate paymentDate);
 
+    List<Payment> findAllByIsDeleteIsFalse();
+
     @Modifying
-    @Query("UPDATE Payment AS pm SET pm.isDelete = true WHERE pm.uuid = ?1")
-    void editPaymentIsDeleteIsTrueByUuid(String uuid);
+    @Query("UPDATE Payment AS pm SET pm.isDelete = ?2 WHERE pm.uuid = ?1")
+    void editPaymentIsDeleteIsTrueByUuid(String uuid, Boolean isDeleted);
 
     @Modifying
     @Query("UPDATE Payment AS pm SET pm.isDelete = true WHERE pm.paymentDate = ?1")

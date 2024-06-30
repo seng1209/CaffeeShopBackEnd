@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -26,17 +27,17 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     void editAllInvoiceIsDeleteByInvoiceDate(LocalDate date);
 
     void deleteAllByInvoiceDate(LocalDate date);
-
-//    @Query("SELECT Invoice AS i FROM Invoice WHERE i.isDelete = false ")
-//    List<Invoice> selectAllByIsDeleteIsFalse();
     List<Invoice> findAllByIsDeleteIsFalse();
 
-//    @Query("SELECT Invoice AS i FROM Invoice WHERE i.invoiceDate = ?1")
-//    List<Invoice> selectAllByInvoiceDate(LocalDate date);
     List<Invoice> findAllByInvoiceDate(LocalDate date);
 
-//    @Query("SELECT Invoice AS i FROM Invoice WHERE i.isDelete = true ")
-//    List<Invoice> selectAllByIsDeleteIsTrue();
     List<Invoice> findAllByIsDeleteIsTrue();
+
+    @Query("SELECT MAX(I.id) FROM Invoice AS I")
+    Long getLastInvoiceID();
+
+    @Modifying
+    @Query("UPDATE Invoice AS I SET I.totalAmount = ?2 WHERE I.id = ?1")
+    void editTotalAmount(Long invoiceId, BigDecimal totalAmount);
 
 }

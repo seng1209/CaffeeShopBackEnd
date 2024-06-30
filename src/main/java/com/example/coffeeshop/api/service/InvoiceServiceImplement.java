@@ -7,6 +7,7 @@ import com.example.coffeeshop.api.repository.InvoiceRepository;
 import com.example.coffeeshop.api.web.invoice.CreateInvoiceDto;
 import com.example.coffeeshop.api.web.invoice.InvoiceDto;
 import com.example.coffeeshop.api.web.invoice.UpdateInvoiceDto;
+import com.example.coffeeshop.api.web.invoice.UpdateTotalAmountInvoiceDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -130,5 +131,16 @@ public class InvoiceServiceImplement implements InvoiceService{
     public List<InvoiceDto> findAllByIsDeleteIsTrue() {
         List<Invoice> invoices = invoiceRepository.findAllByIsDeleteIsFalse();
         return invoiceMapper.toInoviceDtoList(invoices);
+    }
+
+    @Override
+    public Long getLastInvoiceId() {
+        return invoiceRepository.getLastInvoiceID();
+    }
+
+    @Transactional
+    @Override
+    public void updateTotalAmount(Long invoiceId, UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto) {
+        invoiceRepository.editTotalAmount(invoiceId, updateTotalAmountInvoiceDto.totalAmount());
     }
 }

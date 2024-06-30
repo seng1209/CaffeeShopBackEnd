@@ -28,7 +28,6 @@ public class SaleDetailServiceImplement implements SaleDetailService{
     public void createNewSaleDetail(CreateSaleDetailDto createSaleDetailDto) {
         SaleDetail saleDetail = saleDetailMapper.fromSaleDetailDto(createSaleDetailDto);
         saleDetail.setUuid(UUID.randomUUID().toString());
-//        saleDetail.setDiscount(BigDecimal.valueOf(0));
         saleDetail.setAmount((createSaleDetailDto.saleUnitPrice().multiply(BigDecimal.valueOf(createSaleDetailDto.saleQty()))).subtract(createSaleDetailDto.discount()));
         saleDetailRepository.save(saleDetail);
     }
@@ -50,7 +49,7 @@ public class SaleDetailServiceImplement implements SaleDetailService{
                 newProduct.setId(updateSaleDetailDto.productId());
                 saleDetail.setProduct(newProduct);
             }
-
+            saleDetail.setAmount((updateSaleDetailDto.saleUnitPrice().multiply(BigDecimal.valueOf(updateSaleDetailDto.saleQty()))).subtract(updateSaleDetailDto.discount()));
             saleDetailRepository.save(saleDetail);
             return;
         }
@@ -87,5 +86,11 @@ public class SaleDetailServiceImplement implements SaleDetailService{
     @Override
     public BigDecimal getAllAmountBySaleId(Long saleId) {
         return saleDetailRepository.sumAllAmountOfSaleDetailBySaleId(saleId);
+    }
+
+    @Override
+    public List<SaleDetailDto> findAllSaleDetailBySaleUuid(String uuid) {
+        List<SaleDetail> saleDetails = saleDetailRepository.getAllSaleDetailBySaleUuid(uuid);
+        return saleDetailMapper.toSaleDetailDtoList(saleDetails);
     }
 }

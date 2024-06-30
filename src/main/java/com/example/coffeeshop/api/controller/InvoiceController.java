@@ -4,6 +4,7 @@ import com.example.coffeeshop.api.service.InvoiceService;
 import com.example.coffeeshop.api.web.invoice.CreateInvoiceDto;
 import com.example.coffeeshop.api.web.invoice.InvoiceDto;
 import com.example.coffeeshop.api.web.invoice.UpdateInvoiceDto;
+import com.example.coffeeshop.api.web.invoice.UpdateTotalAmountInvoiceDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class InvoiceController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{date}")
+    @PutMapping("/date/{date}")
     public void updateAllInvoiceIsDeleteByInvoiceDate(@PathVariable LocalDate date){
         invoiceService.updateAllInvoiceIsDeleteByInvoiceDate(date);
     }
@@ -50,7 +51,7 @@ public class InvoiceController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{date}")
+    @DeleteMapping("/date/{date}")
     public void deleteAllInvoiceByInvoiceDate(@PathVariable LocalDate date){
         invoiceService.deleteAllInvoiceByInvoiceDate(date);
     }
@@ -65,7 +66,7 @@ public class InvoiceController {
         return invoiceService.findAll();
     }
 
-    @GetMapping("/{date}")
+    @GetMapping("/date/{date}")
     public List<InvoiceDto> findAllByInvoiceDate(@PathVariable LocalDate date){
         return invoiceService.findAllByInvoiceDate(date);
     }
@@ -73,6 +74,16 @@ public class InvoiceController {
     @GetMapping("/true")
     public List<InvoiceDto> findAllByIsDeleteIsTrue(){
         return invoiceService.findAllByIsDeleteIsTrue();
+    }
+
+    @GetMapping("/last_id")
+    public Long getLastInvoiceId(){
+        return invoiceService.getLastInvoiceId();
+    }
+
+    @PutMapping("/total_amount/{invoiceId}")
+    public void updateTotalAmount(@PathVariable Long invoiceId, @RequestBody @Valid UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto){
+        invoiceService.updateTotalAmount(invoiceId, updateTotalAmountInvoiceDto);
     }
 
 }

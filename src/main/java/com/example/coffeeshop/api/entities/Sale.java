@@ -30,7 +30,7 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private Staff staff;
-    @Column(nullable = false)
+//    @Column(nullable = false)
 //    @Positive
     private BigDecimal totalAmount;
     @OneToMany(mappedBy = "sale")
