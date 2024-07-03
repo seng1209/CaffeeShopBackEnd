@@ -61,4 +61,10 @@ public class StaffController {
         return staffService.searchStaff(name, phone, stopWork);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{phone}")
+    public void deleteByPhone(@PathVariable String phone){
+        staffService.deleteByPhone(phone);
+    }
+
 }

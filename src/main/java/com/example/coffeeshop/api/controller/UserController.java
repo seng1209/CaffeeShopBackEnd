@@ -34,6 +34,11 @@ public class UserController {
         return userService.findUserByUsername(username);
     }
 
+    @GetMapping("/findUser")
+    public UserDto findUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password){
+        return userService.findUserByUsernameAndPassword(username, password);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{username}")
     public void updateUserByUsername(@PathVariable String username, @RequestBody @Valid UpdateUserDto updateUserDto){

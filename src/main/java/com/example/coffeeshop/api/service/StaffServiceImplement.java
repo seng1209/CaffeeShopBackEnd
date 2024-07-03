@@ -79,4 +79,12 @@ public class StaffServiceImplement implements StaffService{
         List<Staff> staffs = staffRepository.findAllByNameAndPhoneAndStopWork(name, phone, stopWork);
         return staffMapper.toStaffDtoList(staffs);
     }
+
+    @Override
+    public void deleteByPhone(String phone) {
+        Staff staff = staffRepository.findByPhoneAndStopWorkIsFalse(phone).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Staff at phone %s not found", phone))
+        );
+        staffRepository.delete(staff);
+    }
 }

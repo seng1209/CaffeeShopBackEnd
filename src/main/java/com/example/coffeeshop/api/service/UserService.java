@@ -20,6 +20,9 @@ public interface UserService {
     // select a user by username
     UserDto findUserByUsername(String username);
 
+    // select a user by username and password
+    UserDto findUserByUsernameAndPassword(String username, String password);
+
     // select all users
     List<UserDto> findAll();
 

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public record CreateUserDto(
         @NotBlank(message = "Username must be required!")
         @Size(max = 20)
@@ -14,6 +16,8 @@ public record CreateUserDto(
         String password,
         @NotNull(message = "StaffID must be required!")
         @Positive(message = "StaffID must be Integer number lager than 0!")
-        Long staffId
+        Long staffId,
+
+        List<Integer> roleId
 ) {
 }

@@ -29,4 +29,7 @@ public interface StaffService {
     // search by name and phone and stopWork
     List<StaffDto> searchStaff(String name, String phone, Boolean stopWork);
 
+    // delete staff by phone
+    void deleteByPhone(String phone);
+
 }

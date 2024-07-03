@@ -66,6 +66,15 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
+    public UserDto findUserByUsernameAndPassword(String username, String password) {
+        User user = userRepository.findByUsernameAndPassword(username, password).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("User at Username %s and Password %s not found..!", username, password))
+        );
+        return userMapper.toUserDto(user);
+    }
+
+    @Override
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
         return userMapper.toUserDtoList(users);
