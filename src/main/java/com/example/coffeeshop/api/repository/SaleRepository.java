@@ -27,4 +27,13 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     @Query("UPDATE Sale AS S SET S.totalAmount = ?2 WHERE S.id = ?1")
     void editTotalAmountBySaleId(Long saleId, BigDecimal totalAmount);
 
+    @Query("SELECT S.totalAmount FROM Sale AS S WHERE S.id = ?1")
+    BigDecimal getTotalAmountByUuid(Long id);
+
+    @Query("SELECT S FROM Sale AS S WHERE lower(S.customer.name) LIKE lower(concat('%',?1,'%') ) ")
+    List<Sale> findAllByCustomer(String customer);
+
+    @Query("SELECT S FROM Sale AS S WHERE lower(S.staff.name) LIKE lower(concat('%',?1,'%') ) ")
+    List<Sale> findAllByStaff(String staff);
+
 }

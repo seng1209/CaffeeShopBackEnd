@@ -52,4 +52,24 @@ public class ProductController {
         return productService.getSaleUnitPriceByProductId(productId);
     }
 
+    @GetMapping("/find_by_name/{name}")
+    public List<ProductDto> findByLikeName(@PathVariable String name){
+        return productService.findByLikeName(name);
+    }
+
+    @GetMapping("/popular")
+    public List<ProductDto> popular(){
+        return productService.popular();
+    }
+
+    @GetMapping("/product_id/{id}")
+    public ProductDto findById(@PathVariable Integer id){
+        return productService.findById(id);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<ProductDto> findByCategory(@PathVariable String category){
+        return productService.findByCategory(category);
+    }
+
 }

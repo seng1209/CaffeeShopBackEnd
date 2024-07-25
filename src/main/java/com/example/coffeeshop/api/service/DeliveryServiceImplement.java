@@ -1,7 +1,6 @@
 package com.example.coffeeshop.api.service;
 
 import com.example.coffeeshop.api.entities.Delivery;
-import com.example.coffeeshop.api.entities.Order;
 import com.example.coffeeshop.api.mapper.DeliveryMapper;
 import com.example.coffeeshop.api.repository.DeliveryRepository;
 import com.example.coffeeshop.api.web.delivery.CreateDeliveryDto;
@@ -36,12 +35,6 @@ public class DeliveryServiceImplement implements DeliveryService{
         if (deliveryRepository.existsByUuid(uuid)){
             Delivery delivery = deliveryRepository.findByUuid(uuid).orElseThrow();
             deliveryMapper.fromUpdateDeliveryDto(delivery, updateDeliveryDto);
-
-            if (updateDeliveryDto.orderId() != null){
-                Order newOrder = new Order();
-                newOrder.setId(updateDeliveryDto.orderId());
-                delivery.setOrder(newOrder);
-            }
 
             deliveryRepository.save(delivery);
             return;
@@ -103,5 +96,14 @@ public class DeliveryServiceImplement implements DeliveryService{
     public List<DeliveryDto> findAll() {
         List<Delivery> deliveries = deliveryRepository.findAll();
         return deliveryMapper.toDeliveryDtoList(deliveries);
+    }
+
+    @Override
+    public DeliveryDto findById(Long id) {
+        Delivery delivery = deliveryRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Delivery at ID : %s not found!", id))
+        );
+        return deliveryMapper.toDeliveryDto(delivery);
     }
 }

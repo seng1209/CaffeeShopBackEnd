@@ -3,6 +3,7 @@ package com.example.coffeeshop.api.web.sale_detail;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public record SaleDetailDto(
         @JsonIgnore
@@ -11,13 +12,20 @@ public record SaleDetailDto(
         @JsonIgnore
         Long saleId,
         String sale,
+        LocalDate saleDate,
         @JsonIgnore
         Integer productId,
         String product,
         Integer saleQty,
         BigDecimal saleUnitPrice,
         BigDecimal discount,
-        BigDecimal amount
+        BigDecimal amount,
+        String staff,
+        String staffPosition,
+        String customer,
+        Integer customerId,
+        String customerPhone,
+        String customerType
 ) {
 
     public Long getId(){

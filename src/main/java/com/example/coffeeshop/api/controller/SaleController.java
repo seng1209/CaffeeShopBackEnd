@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -62,6 +63,31 @@ public class SaleController {
     @GetMapping("/last_id")
     public Long getLastSaleId(){
         return saleService.getLastSaleId();
+    }
+
+    @GetMapping("/total_amount/{id}")
+    public BigDecimal getTotalAmountByUuid(@PathVariable Long id){
+        return saleService.getTotalAmountByUuid(id);
+    }
+
+    @GetMapping("/sale_id/{id}")
+    public SaleDto findById(@PathVariable Long id){
+        return saleService.findById(id);
+    }
+
+    @GetMapping("/date/{date}")
+    public List<SaleDto> findBySaleDate(@PathVariable LocalDate date){
+        return saleService.findBySaleDate(date);
+    }
+
+    @GetMapping("/customer/{customer}")
+    public List<SaleDto> findAllByCustomer(@PathVariable String customer){
+        return saleService.findAllByCustomer(customer);
+    }
+
+    @GetMapping("/staff/{staff}")
+    public List<SaleDto> findAllByStaff(@PathVariable String staff){
+        return saleService.findAllByStaff(staff);
     }
 
 }

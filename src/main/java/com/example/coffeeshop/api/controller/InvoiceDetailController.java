@@ -31,6 +31,11 @@ public class InvoiceDetailController {
         invoiceDetailService.updateInvoiceDetailByUuid(uuid, updateInvoiceDetailDto);
     }
 
+    @PatchMapping("/id/{id}")
+    public void updateInvoiceDetailById(@PathVariable Long id, @RequestBody @Valid UpdateInvoiceDetailDto updateInvoiceDetailDto){
+        invoiceDetailService.updateInvoiceDetailById(id, updateInvoiceDetailDto);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{uuid}")
     public void deleteInvoiceDetailByUuid(@PathVariable String uuid){

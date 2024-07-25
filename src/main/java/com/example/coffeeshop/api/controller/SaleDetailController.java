@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -52,9 +53,34 @@ public class SaleDetailController {
         return saleDetailService.getAllAmountBySaleId(saleId);
     }
 
+    @GetMapping("/total_amount/date/{saleDate}")
+    public BigDecimal getAmountBySaleDate(@PathVariable LocalDate saleDate){
+        return saleDetailService.getAmountBySaleDate(saleDate);
+    }
+
+    @GetMapping("/total_amount/between_date/{firstDate}/{lastDate}")
+    public BigDecimal getAmountBetweenDate(@PathVariable LocalDate firstDate, @PathVariable LocalDate lastDate){
+        return saleDetailService.getAmountBetweenDate(firstDate, lastDate);
+    }
+
     @GetMapping("/sale_uuid/{uuid}")
     public List<SaleDetailDto> findAllSaleDetailBySaleUuid(@PathVariable String uuid){
         return saleDetailService.findAllSaleDetailBySaleUuid(uuid);
+    }
+
+    @GetMapping("/sale_id/{saleId}")
+    public List<SaleDetailDto> findAllSaleDetailBySaleId(@PathVariable Long saleId){
+        return saleDetailService.findAllSaleDetailBySaleId(saleId);
+    }
+
+    @GetMapping("/sale_date/{saleDate}")
+    public List<SaleDetailDto> findAllSaleDetailBySaleDate(@PathVariable LocalDate saleDate){
+        return saleDetailService.findAllSaleDetailBySaleDate(saleDate);
+    }
+
+    @GetMapping("/sale_date/between_date/{firstDate}/{lastDate}")
+    public List<SaleDetailDto> findAllSaleDetailBetweenSaleDate(@PathVariable LocalDate firstDate, @PathVariable LocalDate lastDate){
+        return saleDetailService.findAllSaleDetailBetweenSaleDate(firstDate, lastDate);
     }
 
 }

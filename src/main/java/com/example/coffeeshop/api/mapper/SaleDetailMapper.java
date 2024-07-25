@@ -21,10 +21,17 @@ public interface SaleDetailMapper {
     void fromUpdateSaleDetailDto(@MappingTarget SaleDetail saleDetail, UpdateSaleDetailDto updateSaleDetailDto);
 
     // select a
-    @Mapping(source = "sale.uuid", target = "sale")
-    @Mapping(source = "sale.id", target = "saleId")
+    @Mapping(source = "sale.staff.name", target = "staff")
+    @Mapping(source = "sale.staff.position", target = "staffPosition")
+    @Mapping(source = "sale.customer.id", target = "customerId")
+    @Mapping(source = "sale.customer.name", target = "customer")
+    @Mapping(source = "sale.customer.phone", target = "customerPhone")
+    @Mapping(source = "sale.customer.type", target = "customerType")
     @Mapping(source = "product.name", target = "product")
     @Mapping(source = "product.id", target = "productId")
+    @Mapping(source = "sale.uuid", target = "sale")
+    @Mapping(source = "sale.id", target = "saleId")
+    @Mapping(source = "sale.saleDate", target = "saleDate")
     SaleDetailDto toSaleDetailDto(SaleDetail saleDetail);
 
     // select all

@@ -1,10 +1,7 @@
 package com.example.coffeeshop.api.controller;
 
 import com.example.coffeeshop.api.service.ImportService;
-import com.example.coffeeshop.api.web.imports.CreateImportDto;
-import com.example.coffeeshop.api.web.imports.ImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateTotalAmountImportDto;
+import com.example.coffeeshop.api.web.imports.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,7 +43,7 @@ public class ImportController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{date}")
+    @PutMapping("/date/{date}")
     public void updateAllImportIsDeleteByImportDate(@PathVariable LocalDate date){
         importService.updateAllImportIsDeleteByImportDate(date);
     }
@@ -58,7 +55,7 @@ public class ImportController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{date}")
+    @DeleteMapping("/date/{date}")
     public void deleteAllImportByImportDate(@PathVariable LocalDate date){
         importService.deleteAllImportByImportDate(date);
     }
@@ -86,6 +83,21 @@ public class ImportController {
     @GetMapping("/last_id")
     public Long findLastImportID (){
         return importService.findLastImportId();
+    }
+
+    @GetMapping("/id/{id}")
+    public ImportDto findById(@PathVariable Long id){
+        return importService.findById(id);
+    }
+
+    @GetMapping("/staff/{name}")
+    public List<ImportDto> findAllByStaffName(@PathVariable String name){
+        return importService.findAllByStaffName(name);
+    }
+
+    @GetMapping("/supplier/{name}")
+    public List<ImportDto> findBySupplierName(@PathVariable String name){
+        return importService.findBySupplierName(name);
     }
 
 }

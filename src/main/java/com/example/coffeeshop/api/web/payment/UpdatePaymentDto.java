@@ -9,7 +9,5 @@ public record UpdatePaymentDto(
         Integer customerId,
         @Positive(message = "StaffID must be required and lager than 0!....")
         Long staffId
-//        @Positive(message = "Paid Amount must be required and lager than 0!....")
-//        BigDecimal paidAmount
 ) {
 }

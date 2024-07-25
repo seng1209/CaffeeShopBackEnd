@@ -77,4 +77,31 @@ public class ProductServiceImplement implements ProductService{
     public BigDecimal getSaleUnitPriceByProductId(Integer productId) {
         return productRepository.selectSaleUnitPriceByProductId(productId);
     }
+
+    @Override
+    public List<ProductDto> findByLikeName(String name) {
+        List<Product> products = productRepository.findAllByLikeName(name);
+        return productMapper.toProductDtoList(products);
+    }
+
+    @Override
+    public List<ProductDto> popular() {
+        List<Product> products = productRepository.popular();
+        return productMapper.toProductDtoList(products);
+    }
+
+    @Override
+    public ProductDto findById(Integer id) {
+        Product product = productRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Product at ID : %s not found!", id))
+        );
+        return productMapper.toProductDto(product);
+    }
+
+    @Override
+    public List<ProductDto> findByCategory(String category) {
+        List<Product> products = productRepository.findAllByCategory(category);
+        return productMapper.toProductDtoList(products);
+    }
 }

@@ -115,4 +115,36 @@ public class SaleServiceImplement implements SaleService{
     public void updateTotalAmountBySaleId(Long saleId, UpdateTotalAmountSaleDto updateTotalAmountSaleDto) {
         saleRepository.editTotalAmountBySaleId(saleId, updateTotalAmountSaleDto.totalAmount());
     }
+
+    @Override
+    public BigDecimal getTotalAmountByUuid(Long id) {
+        return saleRepository.getTotalAmountByUuid(id);
+    }
+
+    @Override
+    public SaleDto findById(Long id) {
+        Sale sale = saleRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Sale at ID : %s not found!", id))
+        );
+        return saleMapper.toSaleDto(sale);
+    }
+
+    @Override
+    public List<SaleDto> findBySaleDate(LocalDate date) {
+        List<Sale> sales = saleRepository.findAllBySaleDate(date);
+        return saleMapper.toSaleDtoList(sales);
+    }
+
+    @Override
+    public List<SaleDto> findAllByCustomer(String customer) {
+        List<Sale> sales = saleRepository.findAllByCustomer(customer);
+        return saleMapper.toSaleDtoList(sales);
+    }
+
+    @Override
+    public List<SaleDto> findAllByStaff(String staff) {
+        List<Sale> sales = saleRepository.findAllByStaff(staff);
+        return saleMapper.toSaleDtoList(sales);
+    }
 }

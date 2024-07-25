@@ -24,15 +24,6 @@ public class CategoryServiceImplement implements CategoryService{
     public void createNewCategory(CreateCategoryDto createCategoryDto) {
         Category category = categoryMapper.formCategoryDto(createCategoryDto);
         categoryRepository.save(category);
-
-        /*if (categoryRepository.existsByName(createCategoryDto.name())){
-            Category category = categoryMapper.formCategoryDto(createCategoryDto);
-            categoryRepository.save(category);
-            return;
-        }
-
-        throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED,
-                String.format("Category name : %s already exists!...",createCategoryDto.name()));*/
     }
 
     @Override
@@ -73,6 +64,21 @@ public class CategoryServiceImplement implements CategoryService{
     @Override
     public List<CategoryDto> findAll() {
         List<Category> categories = categoryRepository.findAll();
+        return categoryMapper.toCategoryDtoList(categories);
+    }
+
+    @Override
+    public CategoryDto findById(Integer id) {
+        Category category = categoryRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Category at ID : %s not found!", id))
+        );
+        return categoryMapper.toCategoryDto(category);
+    }
+
+    @Override
+    public List<CategoryDto> findAllByName(String name) {
+        List<Category> categories = categoryRepository.findAllByName(name);
         return categoryMapper.toCategoryDtoList(categories);
     }
 }

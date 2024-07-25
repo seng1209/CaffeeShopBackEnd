@@ -8,6 +8,7 @@ import com.example.coffeeshop.api.repository.ImportDetailRepository;
 import com.example.coffeeshop.api.repository.ImportRepository;
 import com.example.coffeeshop.api.web.import_detail.CreateImportDetail;
 import com.example.coffeeshop.api.web.import_detail.ImportDetailDto;
+import com.example.coffeeshop.api.web.import_detail.ImportReportDto;
 import com.example.coffeeshop.api.web.import_detail.UpdateImportDetail;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,14 +33,8 @@ public class ImportDetailServiceImplement implements ImportDetailService{
     public void createNewImportDetail(CreateImportDetail createImportDetail) {
         ImportDetail importDetail = importDetailMapper.fromImportDetailDto(createImportDetail);
         importDetail.setUuid(UUID.randomUUID().toString());
-        /*******************************/
-//        Integer importQty = createImportDetail.importQty();
-//        BigDecimal unitPrice = createImportDetail.unitPrice();
-//        BigDecimal amount = unitPrice.multiply(BigDecimal.valueOf(importQty));
-        /*******************************/
-        importDetail.setAmount(createImportDetail.unitPrice().multiply(BigDecimal.valueOf(createImportDetail.importQty())));
-//        System.out.println(importDetail.getAmount());
-//        importRepository.editTotalAmount(createImportDetail.importId(), importDetail.getAmount());
+        importDetail.setAmount(createImportDetail.unitPrice()
+                .multiply(BigDecimal.valueOf(createImportDetail.importQty())));
         importDetailRepository.save(importDetail);
     }
 
@@ -100,6 +96,16 @@ public class ImportDetailServiceImplement implements ImportDetailService{
     }
 
     @Override
+    public BigDecimal getTotalAmountByImportDate(LocalDate date) {
+        return importDetailRepository.getTotalAmountByImportDate(date);
+    }
+
+    @Override
+    public BigDecimal getTotalAmountBetweenImportDate(LocalDate firstDate, LocalDate lastDate) {
+        return importDetailRepository.getTotalAmountBetweenImportDate(firstDate, lastDate);
+    }
+
+    @Override
     public List<ImportDetailDto> findAllImportDetailByImportId(Long importId) {
         List<ImportDetail> importDetails = importDetailRepository.selectAllImportDetailByImportId(importId);
         return importDetailMapper.toImportDetailDtoList(importDetails);
@@ -110,4 +116,17 @@ public class ImportDetailServiceImplement implements ImportDetailService{
         List<ImportDetail> importDetails = importDetailRepository.selectAllImportDetailByImportUuid(uuid);
         return importDetailMapper.toImportDetailDtoList(importDetails);
     }
+
+    @Override
+    public List<ImportDetailDto> findAllImportDetailByImportDate(LocalDate date) {
+        List<ImportDetail> importDetails = importDetailRepository.selectAllImportDetailByImportDate(date);
+        return importDetailMapper.toImportDetailDtoList(importDetails);
+    }
+
+    @Override
+    public List<ImportDetailDto> findAllImportDetailByBetweenImportDate(LocalDate firstDate, LocalDate lastDate) {
+        List<ImportDetail> importDetails = importDetailRepository.selectAllImportDetailBetweenImportDate(firstDate, lastDate);
+        return importDetailMapper.toImportDetailDtoList(importDetails);
+    }
+
 }

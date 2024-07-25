@@ -5,10 +5,7 @@ import com.example.coffeeshop.api.entities.Staff;
 import com.example.coffeeshop.api.entities.Supplier;
 import com.example.coffeeshop.api.mapper.ImportMapper;
 import com.example.coffeeshop.api.repository.ImportRepository;
-import com.example.coffeeshop.api.web.imports.CreateImportDto;
-import com.example.coffeeshop.api.web.imports.ImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateTotalAmountImportDto;
+import com.example.coffeeshop.api.web.imports.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -157,4 +154,26 @@ public class ImportServiceImplement implements ImportService{
     public Long findLastImportId() {
         return importRepository.findLastImportId();
     }
+
+    @Override
+    public ImportDto findById(Long id) {
+        Import imports = importRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Sale at ID : %s not found!", id))
+        );
+        return importMapper.toImportDto(imports);
+    }
+
+    @Override
+    public List<ImportDto> findAllByStaffName(String name) {
+        List<Import> imports = importRepository.findAllByStaffName(name);
+        return importMapper.toImportDtoList(imports);
+    }
+
+    @Override
+    public List<ImportDto> findBySupplierName(String name) {
+        List<Import> imports = importRepository.findAllBySupplierName(name);
+        return importMapper.toImportDtoList(imports);
+    }
+
 }

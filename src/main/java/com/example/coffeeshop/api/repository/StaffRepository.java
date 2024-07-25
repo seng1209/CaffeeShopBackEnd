@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface StaffRepository extends JpaRepository<Staff, Integer> {
+public interface StaffRepository extends JpaRepository<Staff, Long> {
 
     Boolean existsByPhone(String phone);
 
@@ -26,7 +28,15 @@ public interface StaffRepository extends JpaRepository<Staff, Integer> {
 
     List<Staff> findAllByNameAndPhoneAndStopWork(String name, String phone, Boolean stopWork);
 
-    @Modifying
-    @Query("UPDATE Staff  AS s SET s.image = ?1 WHERE s.phone = ?2")
-    void editStaffImage(String image, String phone);
+    @Query("SELECT S FROM Staff AS S WHERE S.name LIKE %?1%")
+    List<Staff> findAllByName(String name);
+
+    @Query("SELECT SUM(S.salary) FROM Staff AS S WHERE S.stopWork = false ")
+    BigDecimal getTotalSalary();
+
+    @Query("SELECT S FROM Staff AS S WHERE lower(S.phone) LIKE lower(concat('%', ?1, '%') ) ")
+    List<Staff> findAllByPhone(String phone);
+
+    @Query("SELECT S FROM Staff AS S WHERE lower(S.position) LIKE lower(concat('%', ?1, '%') ) ")
+    List<Staff> findAllByPosition(String position);
 }

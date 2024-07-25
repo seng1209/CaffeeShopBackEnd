@@ -1,9 +1,6 @@
 package com.example.coffeeshop.api.service;
 
-import com.example.coffeeshop.api.web.imports.CreateImportDto;
-import com.example.coffeeshop.api.web.imports.ImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateImportDto;
-import com.example.coffeeshop.api.web.imports.UpdateTotalAmountImportDto;
+import com.example.coffeeshop.api.web.imports.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -46,5 +43,14 @@ public interface ImportService {
 
     // select last import id
     Long findLastImportId();
+
+    // select import by id
+    ImportDto findById(Long id);
+
+    // select import by staff name
+    List<ImportDto> findAllByStaffName(String name);
+
+    // select import by supplier
+    List<ImportDto> findBySupplierName(String name);
 
 }

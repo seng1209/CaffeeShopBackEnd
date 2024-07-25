@@ -74,4 +74,31 @@ public class CustomerServiceImplement implements CustomerService{
         List<Customer> customers = customerRepository.findAllByNameOrPhone(name, phone);
         return customerMapper.toCustomerDtoList(customers);
     }
+
+    @Override
+    public CustomerDto findById(Integer id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Customer at ID : %s not found!", id))
+        );
+        return customerMapper.toCustomerDto(customer);
+    }
+
+    @Override
+    public List<CustomerDto> findAllByName(String name) {
+        List<Customer> customers = customerRepository.findAllByName(name);
+        return customerMapper.toCustomerDtoList(customers);
+    }
+
+    @Override
+    public List<CustomerDto> findByPhone(String phone) {
+        List<Customer> customers = customerRepository.findByPhoneNumber(phone);
+        return customerMapper.toCustomerDtoList(customers);
+    }
+
+    @Override
+    public List<CustomerDto> findAllByType(String type) {
+        List<Customer> customers = customerRepository.findAllByType(type);
+        return customerMapper.toCustomerDtoList(customers);
+    }
 }

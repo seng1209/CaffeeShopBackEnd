@@ -13,9 +13,12 @@ public record ImportDto(
         @JsonIgnore
         Integer staffId,
         String staff,
+        String staffPhone,
+        String staffPosition,
         @JsonIgnore
         Integer supplierId,
         String supplier,
+        String supplierPhone,
         BigDecimal totalAmount,
         Boolean isDelete) {
 

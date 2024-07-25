@@ -7,6 +7,7 @@ import com.example.coffeeshop.api.mapper.PaymentMapper;
 import com.example.coffeeshop.api.repository.PaymentRepository;
 import com.example.coffeeshop.api.web.payment.CreatePaymentDto;
 import com.example.coffeeshop.api.web.payment.PaymentDto;
+import com.example.coffeeshop.api.web.payment.UpdatePaidAmountPaymentDto;
 import com.example.coffeeshop.api.web.payment.UpdatePaymentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +32,7 @@ public class PaymentServiceImplement implements PaymentService{
         Payment payment = paymentMapper.formPaymentDto(createPaymentDto);
         payment.setUuid(UUID.randomUUID().toString());
         payment.setPaymentDate(LocalDate.now());
+        payment.setPaidAmount(BigDecimal.valueOf(0));
         payment.setIsDelete(false);
         paymentRepository.save(payment);
     }
@@ -103,5 +106,32 @@ public class PaymentServiceImplement implements PaymentService{
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                 String.format("Payment by Payment Date : %s is not found!...", date));
+    }
+
+    @Transactional
+    @Override
+    public void updatePaidAmountPaymentDto(Long id, UpdatePaidAmountPaymentDto updatePaidAmountPaymentDto) {
+        paymentRepository.editPaidAmountByUuid(id, updatePaidAmountPaymentDto.paidAmount());
+    }
+
+    @Override
+    public PaymentDto findById(Long id) {
+        Payment payment = paymentRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Payment at ID : %s not found!", id))
+        );
+        return paymentMapper.toPaymentDto(payment);
+    }
+
+    @Override
+    public List<PaymentDto> findAllByCustomer(String customer) {
+        List<Payment> payments = paymentRepository.findAllByCustomer(customer);
+        return paymentMapper.toPaymentDtoList(payments);
+    }
+
+    @Override
+    public List<PaymentDto> findAllByStaff(String staff) {
+        List<Payment> payments = paymentRepository.findAllByStaff(staff);
+        return paymentMapper.toPaymentDtoList(payments);
     }
 }

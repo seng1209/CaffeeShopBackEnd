@@ -23,4 +23,8 @@ public interface CategoryService {
     // select categories
     List<CategoryDto> findAll();
 
+    CategoryDto findById(Integer id);
+
+    List<CategoryDto> findAllByName(String name);
+
 }

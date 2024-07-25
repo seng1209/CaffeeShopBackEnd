@@ -14,6 +14,8 @@ public interface SaleMapper {
     // create sale
     @Mapping(source = "customerId", target = "customer.id")
     @Mapping(source = "staffId", target = "staff.id")
+    @Mapping(source = "paymentId", target = "payment.id")
+    @Mapping(source = "deliveryId", target = "delivery.id")
     Sale fromSaleDto(CreateSaleDto createSaleDto);
 
     // update sale
@@ -25,6 +27,9 @@ public interface SaleMapper {
     @Mapping(source = "customer.id", target = "customerId")
     @Mapping(source = "staff.name", target = "staff")
     @Mapping(source = "staff.id", target = "staffId")
+    @Mapping(source = "payment.id", target = "paymentId")
+    @Mapping(source = "payment.uuid", target = "paymentUuid")
+    @Mapping(source = "delivery.id", target = "deliveryId")
     SaleDto toSaleDto(Sale sale);
 
     // select all sale

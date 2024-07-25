@@ -17,6 +17,11 @@ public record SaleDto(
         @JsonIgnore
         Integer staffId,
         String staff,
+        @JsonIgnore
+        Long paymentId,
+        String paymentUuid,
+        @JsonIgnore
+        Long deliveryId,
         BigDecimal totalAmount
 ) {
 
@@ -30,5 +35,13 @@ public record SaleDto(
 
     public Integer getStaffId(){
         return this.staffId();
+    }
+
+    public Long getPaymentId(){
+        return this.paymentId();
+    }
+
+    public Long getDeliveryId() {
+        return this.deliveryId();
     }
 }

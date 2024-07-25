@@ -33,23 +33,20 @@ public interface ImportRepository extends JpaRepository<Import, Long> {
     @Query("SELECT MAX(id) FROM Import")
     Long findLastImportId();
 
-//    @Query("""
-//    SELECT import FROM Import AS import WHERE import.importDate = ?1 AND import.isDelete = ?2
-//    """)
-//    @Query("SELECT Import AS i FROM Import WHERE i.importDate = ?1 AND i.isDelete = ?2 ")
-//    List<Import> selectAllByImportDateAndIsDeleteIsFalse(LocalDate date, Boolean isDelete);
     List<Import> findAllByImportDateAndIsDeleteIsFalse(LocalDate importDate);
 
-//    @Query("SELECT Import AS i FROM Import WHERE i.isDelete = true ")
-//    List<Import> selectAllByIsDeleteIsTrue();
     List<Import> findAllByIsDeleteIsTrue();
 
-//    @Query("SELECT Import AS i FROM Import WHERE i.isDelete = ?1 ")
-//    List<Import> selectAll(Boolean isDelete);
     List<Import> findAllByIsDeleteIsFalse();
 
     @Modifying
-    @Query("UPDATE Import AS I SET I.totalAmount = ?2 WHERE I.id = ?1")
+    @Query("UPDATE Import AS I SET I.totalAmount = ?2 WHERE I.id = ?1 ")
     void editTotalAmount(Long id, BigDecimal totalAmount);
+
+    @Query("SELECT IP FROM Import IP WHERE lower(IP.staff.name) LIKE lower(concat('%',?1,'%') ) ")
+    List<Import> findAllByStaffName(String name);
+
+    @Query("SELECT IP FROM Import AS IP WHERE lower(IP.supplier.name) LIKE lower(concat('%',?1,'%') ) ")
+    List<Import> findAllBySupplierName(String name);
 
 }

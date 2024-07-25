@@ -15,6 +15,9 @@ public interface InvoiceDetailService {
     // update invoice detail by uuid
     void updateInvoiceDetailByUuid(String uuid, UpdateInvoiceDetailDto updateInvoiceDetailDto);
 
+    // update invoice detail by id
+    void updateInvoiceDetailById(Long id, UpdateInvoiceDetailDto updateInvoiceDetailDto);
+
     // update is delete by uuid
     void deleteInvoiceDetailByUuid(String uuid);
 

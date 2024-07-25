@@ -1,11 +1,13 @@
 package com.example.coffeeshop.api.service;
 
 import com.example.coffeeshop.api.entities.Sale;
+import com.example.coffeeshop.api.web.product.ProductDto;
 import com.example.coffeeshop.api.web.sale_detail.CreateSaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.SaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.UpdateSaleDetailDto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface SaleDetailService {
@@ -28,7 +30,22 @@ public interface SaleDetailService {
     // get sum of amount of sale_detail by sale_id
     BigDecimal getAllAmountBySaleId(Long saleId);
 
+    // get amount by sale date
+    BigDecimal getAmountBySaleDate(LocalDate date);
+
+    // get amount between date
+    BigDecimal getAmountBetweenDate(LocalDate firstDate, LocalDate lastDate);
+
     // get all sale_detail by sale_uuid
     List<SaleDetailDto> findAllSaleDetailBySaleUuid(String uuid);
+
+    // get all sale_detail by sale id
+    List<SaleDetailDto> findAllSaleDetailBySaleId(Long saleId);
+
+    // get all sale_detail by sale date
+    List<SaleDetailDto> findAllSaleDetailBySaleDate(LocalDate date);
+
+    // get all sale_detail between sale date
+    List<SaleDetailDto> findAllSaleDetailBetweenSaleDate(LocalDate firstDate, LocalDate lastDate);
 
 }

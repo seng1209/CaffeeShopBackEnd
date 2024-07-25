@@ -16,6 +16,9 @@ public interface InvoiceService {
     // update invoice by uuid
     void updateInvoiceByUuid(String uuid, UpdateInvoiceDto updateInvoiceDto);
 
+    // update invoice by id
+    void updateInvoiceById(Long id, UpdateInvoiceDto updateInvoiceDto);
+
     // update invoice is_delete by uuid
     void updateInvoiceIsDeleteByUuid(String uuid);
 
@@ -45,5 +48,11 @@ public interface InvoiceService {
 
     // update total amount by uuid
     void updateTotalAmount(Long invoiceId, UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto);
+
+    // find by invoice id
+    InvoiceDto findById(Long id);
+
+    // find by customer
+    List<InvoiceDto> findAllByCustomer(String customer);
 
 }

@@ -27,4 +27,15 @@ public interface ProductService {
     // get sale_unit_price by product id
     BigDecimal getSaleUnitPriceByProductId(Integer productId);
 
+    // get product like name '%()%'
+    List<ProductDto> findByLikeName(String name);
+
+    // popular products
+    List<ProductDto> popular();
+
+    // select by id
+    ProductDto findById(Integer id);
+
+    // select by category name
+    List<ProductDto> findByCategory(String category);
 }

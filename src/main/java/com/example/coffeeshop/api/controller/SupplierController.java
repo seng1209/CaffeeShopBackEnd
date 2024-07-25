@@ -34,16 +34,6 @@ public class SupplierController {
         return supplierService.findSupplierByContactPhone(contactPhone);
     }
 
-    /*@GetMapping("/search")
-    public SupplierDto searchSupplierByContactAddress(@RequestParam(required = false, defaultValue = "") String contactAddress){
-        return supplierService.searchSupplierByContactAddress(contactAddress);
-    }*/
-
-    /*@GetMapping("/search")
-    public SupplierDto searchSupplierByContactPhone(@RequestParam(required = false, defaultValue = "") String contactPhone){
-        return supplierService.searchSupplierByContactPhone(contactPhone);
-    }*/
-
     @GetMapping("/search")
     public SupplierDto searchSupplierByContactPhoneAndContactAddress(
             @RequestParam(required = false, defaultValue = "") String contactPhone,
@@ -63,6 +53,21 @@ public class SupplierController {
     @DeleteMapping("/{phone}")
     public void deleteSupplierByContactPhone(@PathVariable String phone){
         supplierService.deleteSupplierByContactPhone(phone);
+    }
+
+    @GetMapping("/suppliers_id/{id}")
+    public SupplierDto findById(@PathVariable Integer id){
+        return supplierService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<SupplierDto> findAllByName(@PathVariable String name){
+        return supplierService.findAllByName(name);
+    }
+
+    @GetMapping("/phone/{phone}")
+    public List<SupplierDto> findByPhoneNumber(@PathVariable String phone){
+        return supplierService.findByPhoneNumber(phone);
     }
 
 }

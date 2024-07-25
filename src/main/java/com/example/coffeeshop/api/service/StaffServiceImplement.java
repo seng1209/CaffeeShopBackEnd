@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -86,5 +87,36 @@ public class StaffServiceImplement implements StaffService{
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Staff at phone %s not found", phone))
         );
         staffRepository.delete(staff);
+    }
+
+    @Override
+    public StaffDto findById(Long id) {
+        Staff staff = staffRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Staff at ID : %s not found", id))
+        );
+        return staffMapper.toStaffDto(staff);
+    }
+
+    @Override
+    public List<StaffDto> findByName(String name) {
+        List<Staff> staffs = staffRepository.findAllByName(name);
+        return staffMapper.toStaffDtoList(staffs);
+    }
+
+    @Override
+    public List<StaffDto> findByPhoneNumber(String phone) {
+        List<Staff> staffs = staffRepository.findAllByPhone(phone);
+        return staffMapper.toStaffDtoList(staffs);
+    }
+
+    @Override
+    public List<StaffDto> findByPosition(String position) {
+        List<Staff> staffs = staffRepository.findAllByPosition(position);
+        return staffMapper.toStaffDtoList(staffs);
+    }
+
+    @Override
+    public BigDecimal getTotalSalary() {
+        return staffRepository.getTotalSalary();
     }
 }

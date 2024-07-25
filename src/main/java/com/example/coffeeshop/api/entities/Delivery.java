@@ -23,8 +23,5 @@ public class Delivery {
     private LocalDate deliveryDate;
     @Column(nullable = false)
     private String address;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
 
 }

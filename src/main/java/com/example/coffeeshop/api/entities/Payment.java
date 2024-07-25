@@ -21,7 +21,7 @@ public class Payment {
     private Long id;
     @Column(unique = true, nullable = false)
     private String uuid;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private LocalDate paymentDate;
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -29,8 +29,8 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private Staff staff;
-//    @Column(nullable = false)
-//    private BigDecimal paidAmount;
+    @Column(nullable = false)
+    private BigDecimal paidAmount;
     private Boolean isDelete;
 
 }

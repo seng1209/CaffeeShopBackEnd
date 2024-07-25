@@ -12,7 +12,6 @@ import java.util.List;
 public interface DeliveryMapper {
 
     // create
-    @Mapping(source = "orderId", target = "order.id")
     Delivery fromDeliveryDto(CreateDeliveryDto createDeliveryDto);
 
     // update
@@ -20,8 +19,6 @@ public interface DeliveryMapper {
     void fromUpdateDeliveryDto(@MappingTarget Delivery delivery, UpdateDeliveryDto updateDeliveryDto);
 
     // select a delivery
-    @Mapping(source = "order.id", target = "orderId")
-    @Mapping(source = "order.uuid", target = "order")
     DeliveryDto toDeliveryDto(Delivery delivery);
 
     // select all delivery

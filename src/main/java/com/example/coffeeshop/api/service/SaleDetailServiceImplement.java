@@ -5,6 +5,7 @@ import com.example.coffeeshop.api.entities.Sale;
 import com.example.coffeeshop.api.entities.SaleDetail;
 import com.example.coffeeshop.api.mapper.SaleDetailMapper;
 import com.example.coffeeshop.api.repository.SaleDetailRepository;
+import com.example.coffeeshop.api.web.product.ProductDto;
 import com.example.coffeeshop.api.web.sale_detail.CreateSaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.SaleDetailDto;
 import com.example.coffeeshop.api.web.sale_detail.UpdateSaleDetailDto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -89,8 +91,36 @@ public class SaleDetailServiceImplement implements SaleDetailService{
     }
 
     @Override
+    public BigDecimal getAmountBySaleDate(LocalDate date) {
+        return saleDetailRepository.sumAllAmountOfSaleDetailBySaleDate(date);
+    }
+
+    @Override
+    public BigDecimal getAmountBetweenDate(LocalDate firstDate, LocalDate lastDate) {
+        return saleDetailRepository.sumAllAmountOfSaleDetailBetweenSaleDate(firstDate, lastDate);
+    }
+
+    @Override
     public List<SaleDetailDto> findAllSaleDetailBySaleUuid(String uuid) {
         List<SaleDetail> saleDetails = saleDetailRepository.getAllSaleDetailBySaleUuid(uuid);
+        return saleDetailMapper.toSaleDetailDtoList(saleDetails);
+    }
+
+    @Override
+    public List<SaleDetailDto> findAllSaleDetailBySaleId(Long saleId) {
+        List<SaleDetail> saleDetails = saleDetailRepository.getAllSaleDetailBySaleId(saleId);
+        return saleDetailMapper.toSaleDetailDtoList(saleDetails);
+    }
+
+    @Override
+    public List<SaleDetailDto> findAllSaleDetailBySaleDate(LocalDate date) {
+        List<SaleDetail> saleDetails = saleDetailRepository.getAllBySaleDate(date);
+        return saleDetailMapper.toSaleDetailDtoList(saleDetails);
+    }
+
+    @Override
+    public List<SaleDetailDto> findAllSaleDetailBetweenSaleDate(LocalDate firstDate, LocalDate lastDate) {
+        List<SaleDetail> saleDetails = saleDetailRepository.getAllByBetweenDate(firstDate, lastDate);
         return saleDetailMapper.toSaleDetailDtoList(saleDetails);
     }
 }

@@ -36,7 +36,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<SaleDetail> saleDetails;
 
-    @OneToMany(mappedBy = "product")
-    private Set<OrderDetail> orderDetails;
+//    @OneToMany(mappedBy = "product")
+//    private Set<OrderDetail> orderDetails;
 
 }

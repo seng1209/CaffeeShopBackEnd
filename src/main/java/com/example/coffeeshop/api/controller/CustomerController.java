@@ -56,4 +56,24 @@ public class CustomerController {
         return customerService.searchCustomer(name, phone);
     }
 
+    @GetMapping("/customer/{id}")
+    public CustomerDto findById(@PathVariable Integer id){
+        return customerService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<CustomerDto> findAllByName(@PathVariable String name){
+        return customerService.findAllByName(name);
+    }
+
+    @GetMapping("/phone/{phone}")
+    public List<CustomerDto> findByPhone(@PathVariable String phone){
+        return customerService.findByPhone(phone);
+    }
+
+    @GetMapping("/type/{type}")
+    public List<CustomerDto> findAllByType(@PathVariable String type){
+        return customerService.findAllByType(type);
+    }
+
 }

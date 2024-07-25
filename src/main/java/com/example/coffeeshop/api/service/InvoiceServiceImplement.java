@@ -54,6 +54,29 @@ public class InvoiceServiceImplement implements InvoiceService{
                 String.format("Invoice at UUID : %s is not found...!", uuid));
     }
 
+    @Override
+    public void updateInvoiceById(Long id, UpdateInvoiceDto updateInvoiceDto) {
+        if (invoiceRepository.existsById(id)){
+            Invoice invoice = invoiceRepository.findById(id).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            String.format("Invoice at ID : %s is not found...!", id))
+            );
+            invoiceMapper.fromUpdateInvoice(invoice, updateInvoiceDto);
+
+            if (updateInvoiceDto.customerId() != null){
+                Customer newCustomer = new Customer();
+                newCustomer.setId(updateInvoiceDto.customerId());
+                invoice.setCustomer(newCustomer);
+            }
+
+            invoiceRepository.save(invoice);
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Invoice at ID : %s is not found...!", id));
+    }
+
     @Transactional
     @Override
     public void updateInvoiceIsDeleteByUuid(String uuid) {
@@ -142,5 +165,20 @@ public class InvoiceServiceImplement implements InvoiceService{
     @Override
     public void updateTotalAmount(Long invoiceId, UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto) {
         invoiceRepository.editTotalAmount(invoiceId, updateTotalAmountInvoiceDto.totalAmount());
+    }
+
+    @Override
+    public InvoiceDto findById(Long id) {
+        Invoice invoice = invoiceRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Invoice at ID : %s not found!", id))
+        );
+        return invoiceMapper.toInvoiceDto(invoice);
+    }
+
+    @Override
+    public List<InvoiceDto> findAllByCustomer(String customer) {
+        List<Invoice> invoices = invoiceRepository.findAllByCustomer(customer);
+        return invoiceMapper.toInoviceDtoList(invoices);
     }
 }

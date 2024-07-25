@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -65,6 +66,31 @@ public class StaffController {
     @DeleteMapping("/{phone}")
     public void deleteByPhone(@PathVariable String phone){
         staffService.deleteByPhone(phone);
+    }
+
+    @GetMapping("/staff_id/{id}")
+    public StaffDto findById(@PathVariable Long id){
+        return staffService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<StaffDto> findByName(@PathVariable String name){
+        return staffService.findByName(name);
+    }
+
+    @GetMapping("/salary")
+    public BigDecimal getTotalSalary(){
+        return staffService.getTotalSalary();
+    }
+
+    @GetMapping("/phone/{phone}")
+    public List<StaffDto> findByPhoneNumber(@PathVariable String phone){
+        return staffService.findByPhoneNumber(phone);
+    }
+
+    @GetMapping("/position/{position}")
+    public List<StaffDto> findByPosition(@PathVariable String position){
+        return staffService.findByPosition(position);
     }
 
 }

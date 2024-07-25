@@ -32,4 +32,10 @@ public interface SupplierService {
     // search by contact phone and contact address
     SupplierDto searchSupplierByContactPhoneAndContactAddress(String contactPhone, String contactAddress);
 
+    SupplierDto findById(Integer id);
+
+    List<SupplierDto> findAllByName(String name);
+
+    List<SupplierDto> findByPhoneNumber(String phone);
+
 }

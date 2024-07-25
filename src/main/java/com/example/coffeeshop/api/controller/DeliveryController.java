@@ -58,4 +58,9 @@ public class DeliveryController {
         return deliveryService.findAll();
     }
 
+    @GetMapping("/delivery_id/{id}")
+    public DeliveryDto findById(@PathVariable Long id){
+        return deliveryService.findById(id);
+    }
+
 }

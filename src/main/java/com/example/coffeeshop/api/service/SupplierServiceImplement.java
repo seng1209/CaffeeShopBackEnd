@@ -90,4 +90,25 @@ public class SupplierServiceImplement implements SupplierService{
         );
         return supplierMapper.toSupplierDto(supplier);
     }
+
+    @Override
+    public SupplierDto findById(Integer id) {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Supplier at ID : %s not found!", id))
+        );
+        return supplierMapper.toSupplierDto(supplier);
+    }
+
+    @Override
+    public List<SupplierDto> findAllByName(String name) {
+        List<Supplier> suppliers = supplierRepository.findAllByName(name);
+        return supplierMapper.toSupplierDtoList(suppliers);
+    }
+
+    @Override
+    public List<SupplierDto> findByPhoneNumber(String phone) {
+        List<Supplier> suppliers = supplierRepository.findByPhone(phone);
+        return supplierMapper.toSupplierDtoList(suppliers);
+    }
 }

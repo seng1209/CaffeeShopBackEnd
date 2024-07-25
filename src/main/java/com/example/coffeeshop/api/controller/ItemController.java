@@ -51,4 +51,14 @@ public class ItemController {
         return itemService.searchItemByName(name);
     }
 
+    @GetMapping("/item_id/{id}")
+    public ItemDto findById(@PathVariable Integer id){
+        return itemService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<ItemDto> findAllByName(@PathVariable String name){
+        return itemService.findAllByName(name);
+    }
+
 }

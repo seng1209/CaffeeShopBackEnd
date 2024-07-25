@@ -40,4 +40,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     @Query("UPDATE Invoice AS I SET I.totalAmount = ?2 WHERE I.id = ?1")
     void editTotalAmount(Long invoiceId, BigDecimal totalAmount);
 
+    @Query("SELECT I FROM Invoice AS I WHERE lower(I.customer.name) LIKE lower(concat('%',?1,'%') ) ")
+    List<Invoice> findAllByCustomer(String customer);
+
 }

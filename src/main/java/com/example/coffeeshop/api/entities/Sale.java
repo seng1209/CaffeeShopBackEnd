@@ -30,8 +30,12 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private Staff staff;
-//    @Column(nullable = false)
-//    @Positive
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
     private BigDecimal totalAmount;
     @OneToMany(mappedBy = "sale")
     private Set<SaleDetail> saleDetails;

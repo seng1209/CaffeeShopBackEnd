@@ -27,4 +27,8 @@ public interface ItemService {
     // search items by name
     ItemDto searchItemByName(String name);
 
+    List<ItemDto> findAllByName(String name);
+
+    ItemDto findById(Integer id);
+
 }

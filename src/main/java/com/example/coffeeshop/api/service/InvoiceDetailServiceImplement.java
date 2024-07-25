@@ -62,6 +62,32 @@ public class InvoiceDetailServiceImplement implements InvoiceDetailService{
                 String.format("Invoice Detail ad UUID : %s not found...!", uuid));
     }
 
+    @Override
+    public void updateInvoiceDetailById(Long id, UpdateInvoiceDetailDto updateInvoiceDetailDto) {
+        if (invoiceDetailRepository.existsById(id)){
+            InvoiceDetail invoiceDetail = invoiceDetailRepository.findById(id).orElseThrow();
+            invoiceDetailMapper.fromUpdateInvoiceDetailDto(invoiceDetail, updateInvoiceDetailDto);
+
+            if (updateInvoiceDetailDto.invoiceId() != null){
+                Invoice newInvoice = new Invoice();
+                newInvoice.setId(updateInvoiceDetailDto.invoiceId());
+                invoiceDetail.setInvoice(newInvoice);
+            }
+
+            if (updateInvoiceDetailDto.productId() != null){
+                Product newProduct = new Product();
+                newProduct.setId(updateInvoiceDetailDto.productId());
+                invoiceDetail.setProduct(newProduct);
+            }
+            invoiceDetail.setProductTotal(updateInvoiceDetailDto.unitPrice().multiply(BigDecimal.valueOf(updateInvoiceDetailDto.quantity())));
+            invoiceDetailRepository.save(invoiceDetail);
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Invoice Detail ad ID : %s not found...!", id));
+    }
+
     @Transactional
     @Override
     public void deleteInvoiceDetailByUuid(String uuid) {

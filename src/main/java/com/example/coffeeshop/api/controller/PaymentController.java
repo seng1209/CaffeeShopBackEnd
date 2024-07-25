@@ -3,6 +3,7 @@ package com.example.coffeeshop.api.controller;
 import com.example.coffeeshop.api.service.PaymentService;
 import com.example.coffeeshop.api.web.payment.CreatePaymentDto;
 import com.example.coffeeshop.api.web.payment.PaymentDto;
+import com.example.coffeeshop.api.web.payment.UpdatePaidAmountPaymentDto;
 import com.example.coffeeshop.api.web.payment.UpdatePaymentDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,27 @@ public class PaymentController {
     @PatchMapping("/{uuid}")
     public void updatePaymentByUuid(@PathVariable String uuid, @RequestBody @Valid UpdatePaymentDto updatePaymentDto){
         paymentService.updatePaymentByUuid(uuid, updatePaymentDto);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/paid_amount/{id}")
+    public void updatePaidAmountPaymentDto(@PathVariable Long id, @RequestBody UpdatePaidAmountPaymentDto updatePaidAmountPaymentDto){
+        paymentService.updatePaidAmountPaymentDto(id, updatePaidAmountPaymentDto);
+    }
+
+    @GetMapping("/payment_id/{id}")
+    public PaymentDto findById(@PathVariable Long id){
+        return paymentService.findById(id);
+    }
+
+    @GetMapping("/customer/{customer}")
+    public List<PaymentDto> findAllByCustomer(@PathVariable String customer){
+        return paymentService.findAllByCustomer(customer);
+    }
+
+    @GetMapping("/staff/{staff}")
+    public List<PaymentDto> findAllByStaff(@PathVariable String staff){
+        return paymentService.findAllByStaff(staff);
     }
 
 }

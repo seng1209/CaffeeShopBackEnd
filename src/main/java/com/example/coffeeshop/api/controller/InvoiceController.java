@@ -32,6 +32,11 @@ public class InvoiceController {
         invoiceService.updateInvoiceByUuid(uuid, updateInvoiceDto);
     }
 
+    @PatchMapping("/invoice_id/{id}")
+    public void updateInvoiceById(@PathVariable Long id, @RequestBody @Valid UpdateInvoiceDto updateInvoiceDto){
+        invoiceService.updateInvoiceById(id, updateInvoiceDto);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{uuid}")
     public void updateInvoiceIsDeleteByUuid(@PathVariable String uuid){
@@ -84,6 +89,16 @@ public class InvoiceController {
     @PutMapping("/total_amount/{invoiceId}")
     public void updateTotalAmount(@PathVariable Long invoiceId, @RequestBody @Valid UpdateTotalAmountInvoiceDto updateTotalAmountInvoiceDto){
         invoiceService.updateTotalAmount(invoiceId, updateTotalAmountInvoiceDto);
+    }
+
+    @GetMapping("/invoice_id/{id}")
+    public InvoiceDto findById(@PathVariable Long id){
+        return invoiceService.findById(id);
+    }
+
+    @GetMapping("/customer/{customer}")
+    public List<InvoiceDto> findAllByCustomer(@PathVariable String customer){
+        return invoiceService.findAllByCustomer(customer);
     }
 
 }

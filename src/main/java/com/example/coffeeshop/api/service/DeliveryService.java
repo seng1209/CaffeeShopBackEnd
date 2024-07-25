@@ -30,4 +30,6 @@ public interface DeliveryService {
     // select all delivery
     List<DeliveryDto> findAll();
 
+    DeliveryDto findById(Long id);
+
 }

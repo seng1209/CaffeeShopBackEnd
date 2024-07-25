@@ -34,6 +34,16 @@ public class CategoryController {
         return categoryService.findByName(name);
     }
 
+    @GetMapping("/category_id/{id}")
+    public CategoryDto findById(@PathVariable Integer id){
+        return categoryService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<CategoryDto> findAllByName(@PathVariable String name){
+        return categoryService.findAllByName(name);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{name}")
     public void updateCategory(@PathVariable String name, @RequestBody UpdateCategoryDto updateCategoryDto){

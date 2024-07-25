@@ -45,8 +45,11 @@ public interface ImportMapper {
      */
     @Mapping(source = "staff.id", target = "staffId")
     @Mapping(source = "staff.name", target = "staff")
+    @Mapping(source = "staff.phone", target = "staffPhone")
+    @Mapping(source = "staff.position", target = "staffPosition")
     @Mapping(source = "supplier.id", target = "supplierId")
     @Mapping(source = "supplier.name", target = "supplier")
+    @Mapping(source = "supplier.contactPhone", target = "supplierPhone")
     ImportDto toImportDto(Import imports);
 
     // select all import

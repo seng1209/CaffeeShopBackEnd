@@ -10,16 +10,10 @@ public record DeliveryDto(
         Long id,
         String uuid,
         LocalDate deliveryDate,
-        String address,
-        @JsonIgnore
-        Long orderId,
-        String order) {
+        String address) {
 
     public Long getId(){
         return this.id();
     }
 
-    public Long getOrderId(){
-        return this.orderId();
-    }
 }

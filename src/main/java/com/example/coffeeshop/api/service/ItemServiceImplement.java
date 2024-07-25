@@ -79,4 +79,19 @@ public class ItemServiceImplement implements ItemService{
         );
         return itemMapper.toItemDto(item);
     }
+
+    @Override
+    public List<ItemDto> findAllByName(String name) {
+        List<Item> items = itemRepository.findAllByName(name);
+        return itemMapper.toItemDtoList(items);
+    }
+
+    @Override
+    public ItemDto findById(Integer id) {
+        Item item = itemRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Item at ID : %s not found!", id))
+        );
+        return itemMapper.toItemDto(item);
+    }
 }

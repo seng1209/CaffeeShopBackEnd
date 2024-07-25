@@ -26,4 +26,12 @@ public interface CustomerService {
     // search
     List<CustomerDto> searchCustomer(String name, String phone);
 
+    CustomerDto findById(Integer id);
+
+    List<CustomerDto> findAllByName(String name);
+
+    List<CustomerDto> findByPhone(String phone);
+
+    List<CustomerDto> findAllByType(String type);
+
 }

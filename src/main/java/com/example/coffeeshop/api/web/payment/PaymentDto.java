@@ -16,6 +16,7 @@ public record PaymentDto(
         @JsonIgnore
         Integer staffId,
         String staff,
+        BigDecimal paidAmount,
         Boolean isDelete) {
 
         public Long getId(){

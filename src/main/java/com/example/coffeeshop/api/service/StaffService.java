@@ -4,6 +4,8 @@ import com.example.coffeeshop.api.web.staff.CreateStaffDto;
 import com.example.coffeeshop.api.web.staff.StaffDto;
 import com.example.coffeeshop.api.web.staff.UpdateStaffDto;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface StaffService {
@@ -31,5 +33,19 @@ public interface StaffService {
 
     // delete staff by phone
     void deleteByPhone(String phone);
+
+    // find staff by id
+    StaffDto findById(Long id);
+
+    // find staff by name
+    List<StaffDto> findByName(String name);
+
+    // find by phone
+    List<StaffDto> findByPhoneNumber(String phone);
+
+    // find by position
+    List<StaffDto> findByPosition(String position);
+
+    BigDecimal getTotalSalary();
 
 }
